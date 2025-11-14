@@ -1,8 +1,8 @@
-# 🥗 FridgeEmptier - Don't Waste It, Taste It.
+# 🥗 LeftoverHero - Don't Waste It, Taste It.
 
-![FridgeEmptier Logo Placeholder - Replace with your actual logo](https://placehold.co/600x150/50C878/FFFFFF/png?text=FridgeEmptier)
+![LeftoverHero Logo Placeholder - Replace with your actual logo](https://placehold.co/600x150/50C878/FFFFFF/png?text=LeftoverHero)
 
-**FridgeEmptier** is an intelligent recipe recommendation web application designed to help you easily utilize ingredients in your fridge, reduce food waste, and inspire your cooking creativity. Simply select the ingredients you have, and we'll instantly match you with delicious recipes from around the world!
+**LeftoverHero** is an intelligent recipe recommendation web application designed to help you easily utilize ingredients in your fridge, reduce food waste, and inspire your cooking creativity. Simply select the ingredients you have, and we'll instantly match you with delicious recipes from around the world!
 
 ## ✨ Features
 
