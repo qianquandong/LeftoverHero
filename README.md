@@ -39,8 +39,8 @@ Clone the project to your local machine and install dependencies:
 
 ```bash
 # Clone the repository
-git clone [your-repository-url] fridge-emptier
-cd fridge-emptier
+git clone https://github.com/qianquandong/LeftoverHero.git
+cd LeftoverHero
 
 # Install dependencies
 npm install
