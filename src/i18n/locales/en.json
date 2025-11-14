@@ -18,6 +18,32 @@
     "vegetables": "Vegetables",
     "meats": "Meats & Proteins",
     "staples": "Staples"
+  },
+  "filters": {
+    "cookingMethods": "Cooking Methods",
+    "dietaryRestrictions": "Dietary Restrictions",
+    "glutenFree": "Gluten Free",
+    "sugarFree": "Sugar Free",
+    "dairyFree": "Dairy Free",
+    "nutFree": "Nut Free",
+    "shellfishFree": "Shellfish Free",
+    "eggFree": "Egg Free",
+    "soyFree": "Soy Free",
+    "lambFree": "Lamb Free",
+    "honeyFree": "Honey Free",
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "lowCarb": "Low Carb",
+    "keto": "Keto",
+    "stirFry": "Stir-Fry",
+    "bake": "Bake",
+    "boil": "Boil",
+    "fry": "Fry",
+    "steam": "Steam",
+    "grill": "Grill",
+    "roast": "Roast",
+    "soup": "Soup",
+    "salad": "Salad"
   }
 }
 
