@@ -5,7 +5,19 @@
   },
   "home": {
     "title": "Turn Your Leftover Ingredients Into Delicious Meals",
-    "description": "Select ingredients you have and discover amazing recipes!"
+    "description": "Select ingredients you have and discover amazing recipes!",
+    "ingredientsSelected": "Ingredients Selected",
+    "resetFilters": "Reset Filters",
+    "whatsInFridge": "What's In Your Fridge?",
+    "recipesYouCanMake": "Recipes You Can Make",
+    "recipesFound": "recipes found",
+    "loadMore": "Load More",
+    "remaining": "remaining"
+  },
+  "ingredients": {
+    "vegetables": "Vegetables",
+    "meats": "Meats & Proteins",
+    "staples": "Staples"
   }
 }
 
