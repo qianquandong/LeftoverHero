@@ -16,9 +16,14 @@ export default function Header({ selectedCount, onReset }: HeaderProps) {
     <>
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            {t('app.title')}
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+              {t('app.title')}
+            </h1>
+            <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">
+              v{__APP_VERSION__}
+            </span>
+          </div>
           <div className="flex items-center gap-3">
             <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
               {selectedCount} {t('home.ingredientsSelected')}
