@@ -15,6 +15,8 @@ export type DietaryRestriction =
   | 'vegan'
   | 'low-carb'
   | 'keto'
+  | 'low-fat'
+  | 'diabetic'
 
 interface FilterPanelProps {
   selectedCookingMethods: CookingMethod[]
@@ -45,20 +47,22 @@ export default function FilterPanel({
     'vegetarian',
     'vegan',
     'low-carb',
-    'keto'
+    'keto',
+    'low-fat',
+    'diabetic'
   ]
 
   const renderCookingMethodButton = (method: CookingMethod) => {
     const isSelected = selectedCookingMethods.includes(method)
     const emojiMap: Record<CookingMethod, string> = {
-      'stir-fry': '🍳',
-      'bake': '🔥',
-      'boil': '🥘',
+      'stir-fry': '🥢',
+      'bake': '🎂',
+      'boil': '🍲',
       'fry': '🍳',
-      'steam': '♨️',
+      'steam': '💨',
       'grill': '🔥',
-      'roast': '🔥',
-      'soup': '🍲',
+      'roast': '🍗',
+      'soup': '🥣',
       'salad': '🥗',
     }
 
@@ -87,19 +91,21 @@ export default function FilterPanel({
   const renderDietaryRestrictionButton = (restriction: DietaryRestriction) => {
     const isSelected = selectedDietaryRestrictions.includes(restriction)
     const emojiMap: Record<DietaryRestriction, string> = {
-      'gluten-free': '🌾',
-      'sugar-free': '🍬',
-      'dairy-free': '🥛',
-      'nut-free': '🥜',
-      'shellfish-free': '🦐',
-      'egg-free': '🥚',
-      'soy-free': '🫛',
-      'lamb-free': '🐑',
-      'honey-free': '🍯',
-      'vegetarian': '🥗',
-      'vegan': '🌱',
-      'low-carb': '🥑',
-      'keto': '🥩',
+      'gluten-free': '🚫🌾',
+      'sugar-free': '🚫🍬',
+      'dairy-free': '🚫🥛',
+      'nut-free': '🚫🥜',
+      'shellfish-free': '🚫🦞',
+      'egg-free': '🚫🥚',
+      'soy-free': '🚫🌱',
+      'lamb-free': '🚫🐑',
+      'honey-free': '🚫🍯',
+      'vegetarian': '🥕',
+      'vegan': '🌿',
+      'low-carb': '📉',
+      'keto': '🥑',
+      'low-fat': '🚫🥩',
+      'diabetic': '🩸',
     }
 
     // 将 restriction key 转换为翻译 key（例如 'gluten-free' -> 'glutenFree'）

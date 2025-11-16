@@ -9,21 +9,25 @@ interface Ingredient {
 }
 
 const allIngredients: Ingredient[] = [
-  // Meats & Proteins
-  { id: 'lunch-meat', name: 'Spam', emoji: '🥓', category: 'meats' },
-  { id: 'sausage', name: 'Sausage', emoji: '🌭', category: 'meats' },
-  { id: 'bacon', name: 'Bacon', emoji: '🥓', category: 'meats' },
+  // Meats (ordered as specified)
   { id: 'chicken', name: 'Chicken', emoji: '🍗', category: 'meats' },
-  { id: 'pork', name: 'Pork', emoji: '🐷', category: 'meats' },
   { id: 'egg', name: 'Egg', emoji: '🥚', category: 'meats' },
   { id: 'beef', name: 'Beef', emoji: '🥩', category: 'meats' },
-  { id: 'turkey', name: 'Turkey', emoji: '🦃', category: 'meats' },
-  { id: 'fish', name: 'Fish', emoji: '🐟', category: 'meats' },
-  { id: 'shrimp', name: 'Shrimp', emoji: '🦐', category: 'meats' },
-  { id: 'tofu', name: 'Tofu', emoji: '🧈', category: 'meats' },
-  { id: 'chicken-breast', name: 'Chicken Breast', emoji: '🍗', category: 'meats' },
+  { id: 'pork', name: 'Pork', emoji: '🐷', category: 'meats' },
   { id: 'ground-beef', name: 'Ground Beef', emoji: '🥩', category: 'meats' },
   { id: 'salmon', name: 'Salmon', emoji: '🐟', category: 'meats' },
+  { id: 'tofu', name: 'Tofu', emoji: '🧈', category: 'meats' },
+  { id: 'bacon', name: 'Bacon', emoji: '🥓', category: 'meats' },
+  { id: 'sausage', name: 'Sausage', emoji: '🌭', category: 'meats' },
+  { id: 'turkey', name: 'Turkey', emoji: '🦃', category: 'meats' },
+  { id: 'shrimp', name: 'Shrimp', emoji: '🦐', category: 'meats' },
+  { id: 'lamb', name: 'Lamb', emoji: '🐑', category: 'meats' },
+  { id: 'fish', name: 'Fish', emoji: '🐟', category: 'meats' },
+  { id: 'deli-meat', name: 'Deli Meat', emoji: '🥩', category: 'meats' },
+  { id: 'oysters-clams', name: 'Oysters / Clams', emoji: '🦪', category: 'meats' },
+  { id: 'veal', name: 'Veal', emoji: '🥩', category: 'meats' },
+  { id: 'lunch-meat', name: 'Spam', emoji: '🥓', category: 'meats' },
+  { id: 'chicken-breast', name: 'Chicken Breast', emoji: '🍗', category: 'meats' },
   // Vegetables
   { id: 'potato', name: 'Potato', emoji: '🥔', category: 'vegetables' },
   { id: 'carrot', name: 'Carrot', emoji: '🥕', category: 'vegetables' },
@@ -51,7 +55,6 @@ const allIngredients: Ingredient[] = [
   { id: 'rice', name: 'Rice', emoji: '🍚', category: 'staples' },
   { id: 'instant-noodles', name: 'Instant Noodles', emoji: '🍜', category: 'staples' },
   { id: 'pasta', name: 'Pasta', emoji: '🍝', category: 'staples' },
-  { id: 'quinoa', name: 'Quinoa', emoji: '🌾', category: 'staples' },
   { id: 'oats', name: 'Oats', emoji: '🌾', category: 'staples' },
   { id: 'potato-starch', name: 'Potato Starch', emoji: '🥔', category: 'staples' },
   { id: 'tortilla', name: 'Tortilla', emoji: '🌮', category: 'staples' },
@@ -99,12 +102,12 @@ export default function IngredientSelector({
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 h-full">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
       <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
         👨‍🍳 {t('home.whatsInFridge')}
       </h2>
 
-      {/* Meats & Proteins */}
+      {/* Meats */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
           🥩 {t('ingredients.meats')}

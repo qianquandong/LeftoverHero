@@ -4,8 +4,7 @@ import IngredientSelector from '@/components/IngredientSelector'
 import FilterPanel from '@/components/FilterPanel'
 import type { CookingMethod, DietaryRestriction } from '@/components/FilterPanel'
 import RecipeList from '@/components/RecipeList'
-import FloatingActionButtons from '@/components/FloatingActionButtons'
-import { matchRecipes } from '@/data/recipes'
+import { matchRecipes, getRecipesOfTheDay } from '@/data/recipes'
 
 export default function HomePage() {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([])
@@ -41,6 +40,11 @@ export default function HomePage() {
     return matchRecipes(selectedIngredients, selectedCookingMethods, selectedDietaryRestrictions)
   }, [selectedIngredients, selectedCookingMethods, selectedDietaryRestrictions])
 
+  // Get featured recipes of the day
+  const featuredRecipes = useMemo(() => {
+    return getRecipesOfTheDay()
+  }, [])
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header
@@ -65,13 +69,15 @@ export default function HomePage() {
 
           {/* Right Column - Recipe List */}
           <div>
-            <RecipeList recipes={matchedRecipes} />
+            <RecipeList 
+              recipes={matchedRecipes} 
+              hasSelectedIngredients={selectedIngredients.length > 0}
+              featuredRecipes={featuredRecipes}
+              showFeatured={selectedIngredients.length === 0}
+            />
           </div>
         </div>
       </div>
-
-      {/* Floating Action Buttons */}
-      <FloatingActionButtons />
     </div>
   )
 }

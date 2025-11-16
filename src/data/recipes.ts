@@ -777,28 +777,31 @@ export const ingredientMapping: Record<string, string[]> = {
   'green-beans': ['Green Beans'],
   scallion: ['Scallion'],
   ginger: ['Ginger'],
-  // Meats & Proteins
-  'lunch-meat': ['Spam'],
-  sausage: ['Sausage'],
-  bacon: ['Bacon'],
+  // Meats (ordered as specified)
   chicken: ['Chicken', 'Chicken Breast'],
-  pork: ['Pork'],
   egg: ['Egg'],
   beef: ['Beef', 'Ground Beef'],
-  turkey: ['Turkey'],
-  fish: ['Fish', 'Salmon'],
-  shrimp: ['Shrimp'],
-  tofu: ['Tofu'],
-  'chicken-breast': ['Chicken', 'Chicken Breast'],
+  pork: ['Pork'],
   'ground-beef': ['Beef', 'Ground Beef'],
   salmon: ['Fish', 'Salmon'],
+  tofu: ['Tofu'],
+  bacon: ['Bacon'],
+  sausage: ['Sausage'],
+  turkey: ['Turkey'],
+  shrimp: ['Shrimp'],
+  lamb: ['Lamb'],
+  fish: ['Fish', 'Salmon'],
+  'deli-meat': ['Deli Meat'],
+  'oysters-clams': ['Oysters', 'Clams'],
+  veal: ['Veal'],
+  'lunch-meat': ['Spam'],
+  'chicken-breast': ['Chicken', 'Chicken Breast'],
   // Staples
   noodles: ['Noodles'],
   bread: ['Bread'],
   rice: ['Rice'],
   'instant-noodles': ['Instant Noodles'],
   pasta: ['Pasta', 'Noodles'],
-  quinoa: ['Quinoa'],
   oats: ['Oats'],
   'potato-starch': ['Potato Starch'],
   tortilla: ['Tortilla'],
@@ -811,6 +814,32 @@ export const ingredientMapping: Record<string, string[]> = {
   milk: ['Milk'],
   honey: ['Honey'],
   oil: ['Oil'],
+}
+
+// 获取今日推荐食谱（基于日期，每天显示不同的推荐）
+export function getRecipesOfTheDay(): Recipe[] {
+  // 使用日期作为种子，确保每天显示相同的推荐
+  const today = new Date()
+  const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000)
+  
+  // 简单的伪随机数生成器
+  let seed = dayOfYear
+  const random = () => {
+    seed = (seed * 9301 + 49297) % 233280
+    return seed / 233280
+  }
+  
+  // 创建推荐食谱列表（可以选择一些受欢迎的食谱）
+  const featuredRecipeIds = [
+    1, 2, 3, 5, 7, 10, 12, 15, 18, 20, 22, 25, 28, 30, 32, 35, 38, 40, 42, 45,
+    48, 50, 52, 55, 58, 60, 62, 65, 68, 70, 72, 75, 78, 80, 82, 85, 88, 90, 92, 95
+  ]
+  
+  // 使用种子随机选择6个推荐食谱
+  const shuffled = [...featuredRecipeIds].sort(() => random() - 0.5)
+  
+  const selectedIds = shuffled.slice(0, 6)
+  return recipes.filter(recipe => selectedIds.includes(recipe.id))
 }
 
 // 匹配食谱函数
