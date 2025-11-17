@@ -45,6 +45,11 @@ export default function HomePage() {
     return getRecipesOfTheDay()
   }, [])
 
+  // 判断是否应该显示推荐食谱：只有在没有任何选择时才显示
+  const shouldShowFeatured = selectedIngredients.length === 0 && 
+                              selectedCookingMethods.length === 0 && 
+                              selectedDietaryRestrictions.length === 0
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header
@@ -71,9 +76,10 @@ export default function HomePage() {
           <div>
             <RecipeList 
               recipes={matchedRecipes} 
-              hasSelectedIngredients={selectedIngredients.length > 0}
+              hasSelectedIngredients={selectedIngredients.length > 0 || selectedCookingMethods.length > 0 || selectedDietaryRestrictions.length > 0}
               featuredRecipes={featuredRecipes}
-              showFeatured={selectedIngredients.length === 0}
+              showFeatured={shouldShowFeatured}
+              selectedDietaryRestrictions={selectedDietaryRestrictions}
             />
           </div>
         </div>

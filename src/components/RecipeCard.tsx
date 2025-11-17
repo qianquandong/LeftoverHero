@@ -1,16 +1,29 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import type { Recipe } from '@/data/recipes'
+import type { DietaryRestriction } from './FilterPanel'
+import { getSubstitutionSuggestions } from '@/data/recipes'
 
 interface RecipeCardProps {
   recipe: Recipe
+  selectedDietaryRestrictions?: DietaryRestriction[]
 }
 
-export default function RecipeCard({ recipe }: RecipeCardProps) {
+export default function RecipeCard({ recipe, selectedDietaryRestrictions = [] }: RecipeCardProps) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleClick = () => {
-    navigate(`/recipe/${recipe.id}`)
+    // 将饮食限制作为 URL 参数传递
+    const params = new URLSearchParams()
+    if (selectedDietaryRestrictions.length > 0) {
+      params.set('restrictions', selectedDietaryRestrictions.join(','))
+    }
+    const queryString = params.toString()
+    navigate(`/recipe/${recipe.id}${queryString ? `?${queryString}` : ''}`)
   }
+
+  const substitutions = getSubstitutionSuggestions(recipe, selectedDietaryRestrictions)
 
   return (
     <div
@@ -58,6 +71,28 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           })}
         </div>
       ) : null}
+      
+      {/* Substitution Suggestions */}
+      {substitutions.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 mb-2">
+            🔄 {t('substitutions.label')}
+          </p>
+          <div className="space-y-1">
+            {substitutions.map((sub, index) => {
+              const restrictionFormatted = sub.restriction
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')
+              return (
+                <p key={index} className="text-xs text-gray-600 dark:text-gray-400">
+                  <span className="font-medium">{sub.ingredient}</span> ({restrictionFormatted}) → {sub.substitution}
+                </p>
+              )
+            })}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

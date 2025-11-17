@@ -1,15 +1,27 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ArrowLeft } from 'lucide-react'
-import { recipes } from '@/data/recipes'
+import { recipes, getSubstitutionSuggestions } from '@/data/recipes'
 import { recipeDetails } from '@/data/recipeDetails'
+import type { DietaryRestriction } from '@/components/FilterPanel'
 
 export default function RecipeDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const { t } = useTranslation()
   
   const recipeId = id ? parseInt(id, 10) : null
   const recipe = recipeId ? recipes.find((r) => r.id === recipeId) : null
   const detail = recipeId ? recipeDetails[recipeId] : null
+  
+  // 从 URL 参数中获取饮食限制
+  const restrictionsParam = searchParams.get('restrictions')
+  const selectedDietaryRestrictions: DietaryRestriction[] = restrictionsParam 
+    ? restrictionsParam.split(',').filter(Boolean) as DietaryRestriction[]
+    : []
+  
+  const substitutions = recipe ? getSubstitutionSuggestions(recipe, selectedDietaryRestrictions) : []
 
   if (!recipe) {
     return (
@@ -89,6 +101,47 @@ export default function RecipeDetailPage() {
           )}
         </div>
 
+        {/* Substitution Suggestions */}
+        {substitutions.length > 0 && (
+          <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-6 mb-6">
+            <h2 className="text-xl font-bold text-amber-800 dark:text-amber-300 mb-3 flex items-center gap-2">
+              🔄 {t('substitutions.title')}
+            </h2>
+            <p className="text-sm text-amber-700 dark:text-amber-400 mb-4">
+              {t('substitutions.description')}
+            </p>
+            <div className="space-y-3">
+              {substitutions.map((sub, index) => {
+                const restrictionFormatted = sub.restriction
+                  .split('-')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')
+                return (
+                  <div
+                    key={index}
+                    className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-amber-200 dark:border-amber-700"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-amber-600 dark:text-amber-400 font-semibold">
+                        {sub.ingredient}
+                      </span>
+                      <span className="text-gray-400 dark:text-gray-500">→</span>
+                      <div className="flex-1">
+                        <p className="text-gray-800 dark:text-white font-medium">
+                          {sub.substitution}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          ({restrictionFormatted})
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Ingredients & Measurements */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-6">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
@@ -96,24 +149,51 @@ export default function RecipeDetailPage() {
           </h2>
           {detail && detail.ingredients.length > 0 ? (
             <ul className="space-y-3">
-              {detail.ingredients.map((ingredient, index) => (
-                <li
-                  key={index}
-                  className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
-                >
-                  <span className="text-gray-500 dark:text-gray-400 font-semibold min-w-[2rem]">
-                    {index + 1}.
-                  </span>
-                  <div className="flex-1">
-                    <span className="text-gray-800 dark:text-white font-medium">
-                      {ingredient.name}
+              {detail.ingredients.map((ingredient, index) => {
+                // 检查这个食材是否需要替代
+                const needsSubstitution = substitutions.some(
+                  sub => ingredient.name.toLowerCase().includes(sub.ingredient.toLowerCase()) ||
+                         sub.ingredient.toLowerCase().includes(ingredient.name.toLowerCase())
+                )
+                const substitution = substitutions.find(
+                  sub => ingredient.name.toLowerCase().includes(sub.ingredient.toLowerCase()) ||
+                         sub.ingredient.toLowerCase().includes(ingredient.name.toLowerCase())
+                )
+                
+                return (
+                  <li
+                    key={index}
+                    className={`flex items-start gap-3 p-3 rounded-lg ${
+                      needsSubstitution 
+                        ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700' 
+                        : 'bg-gray-50 dark:bg-gray-700'
+                    }`}
+                  >
+                    <span className="text-gray-500 dark:text-gray-400 font-semibold min-w-[2rem]">
+                      {index + 1}.
                     </span>
-                    <span className="text-gray-600 dark:text-gray-400 ml-2">
-                      {ingredient.amount}
-                    </span>
-                  </div>
-                </li>
-              ))}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className={`font-medium ${
+                          needsSubstitution 
+                            ? 'text-amber-700 dark:text-amber-300 line-through' 
+                            : 'text-gray-800 dark:text-white'
+                        }`}>
+                          {ingredient.name}
+                        </span>
+                        {needsSubstitution && substitution && (
+                          <span className="text-xs bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 px-2 py-1 rounded">
+                            → {substitution.substitution}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-gray-600 dark:text-gray-400 text-sm">
+                        {ingredient.amount}
+                      </span>
+                    </div>
+                  </li>
+                )
+              })}
             </ul>
           ) : (
             <p className="text-gray-500 dark:text-gray-400">

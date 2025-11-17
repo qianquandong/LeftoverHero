@@ -50,6 +50,12 @@
     "roast": "Roast",
     "soup": "Soup",
     "salad": "Salad"
+  },
+  "substitutions": {
+    "title": "Substitution Suggestions",
+    "description": "Based on your selected dietary restrictions, here are ingredient substitution suggestions:",
+    "label": "Substitution Suggestions:",
+    "for": "for"
   }
 }
 

@@ -2701,5 +2701,123 @@ export const recipeDetails: Record<number, RecipeDetail> = {
       },
     ],
   },
+  101: {
+    id: 101,
+    focus: 'Lamb',
+    ingredients: [
+      { name: 'Lamb Chops (Rib or Loin)', amount: '4 chops, approx. 1.5 inches thick' },
+      { name: 'Olive Oil', amount: '2 tbsp (plus more for cooking)' },
+      { name: 'Garlic', amount: '2 cloves, minced' },
+      { name: 'Fresh Rosemary', amount: '1 tbsp, chopped' },
+      { name: 'Salt', amount: 'to taste' },
+      { name: 'Black Pepper', amount: 'to taste' },
+      { name: 'Unsalted Butter', amount: '1 tbsp' },
+      { name: 'Whole Garlic Cloves', amount: '2-3 cloves (for basting)' },
+    ],
+    instructions: [
+      {
+        step: 1,
+        text: 'Marinate: Pat the chops dry. In a bowl, rub the chops with 2 tbsp olive oil, minced garlic, chopped rosemary, salt, and pepper. Let them rest at room temperature for at least 30 minutes.',
+      },
+      {
+        step: 2,
+        text: 'Sear: Heat a cast-iron skillet over medium-high heat with a little olive oil. Once hot, place the chops in the pan. Sear the fatty edge first until crisp.',
+      },
+      {
+        step: 3,
+        text: 'Cook: Sear each side for 2-3 minutes for a medium-rare result. For thicker chops, you may need a little longer.',
+      },
+      {
+        step: 4,
+        text: 'Basting: In the final 1-2 minutes, add the butter and whole garlic cloves to the pan. Tilt the pan and continuously spoon the melted butter mixture over the chops (basting) to enhance the flavor.',
+      },
+      {
+        step: 5,
+        text: 'Rest and Serve: Remove the chops, tent them loosely with foil, and let them rest for 5 minutes before serving.',
+      },
+    ],
+  },
+  102: {
+    id: 102,
+    focus: 'Lamb',
+    ingredients: [
+      { name: 'Lamb Shoulder', amount: '2 lbs, cut into 1.5-inch chunks' },
+      { name: 'Olive Oil', amount: '2 tbsp' },
+      { name: 'Onion', amount: '1 large, chopped' },
+      { name: 'Carrots', amount: '2, chopped' },
+      { name: 'Garlic', amount: '2 cloves, minced' },
+      { name: 'Cumin', amount: '2 tsp' },
+      { name: 'Coriander', amount: '1 tsp' },
+      { name: 'Turmeric', amount: '1 tsp' },
+      { name: 'Cinnamon', amount: '½ tsp' },
+      { name: 'Ras el Hanout', amount: '1 tsp (optional, but recommended)' },
+      { name: 'Tomato Paste', amount: '1 tbsp' },
+      { name: 'Dried Apricots', amount: '½ cup, halved' },
+      { name: 'Beef or Chicken Stock', amount: '4 cups (low sodium)' },
+      { name: 'Salt', amount: 'to taste' },
+      { name: 'Pepper', amount: 'to taste' },
+    ],
+    instructions: [
+      {
+        step: 1,
+        text: 'Sear: Season the lamb chunks with salt and pepper. Heat olive oil in a large Dutch oven (or heavy pot) over high heat. Sear the lamb in batches until browned on all sides. Remove and set aside.',
+      },
+      {
+        step: 2,
+        text: 'Sauté Aromatics: Reduce the heat to medium. Add the onions and carrots, and sauté until soft (about 5 minutes). Add the minced garlic, tomato paste, and all the spices. Cook for 1 minute until fragrant.',
+      },
+      {
+        step: 3,
+        text: 'Braise: Return the lamb to the pot. Add the dried apricots and pour in the stock until the lamb is about halfway submerged. Bring to a simmer.',
+      },
+      {
+        step: 4,
+        text: 'Slow Cook: Cover the pot tightly. Transfer to a 325°F (160°C) oven and cook for 3-4 hours, or until the lamb is fork-tender and easily falls apart.',
+      },
+      {
+        step: 5,
+        text: 'Serve: Serve over rice or quinoa (naturally GF).',
+      },
+    ],
+  },
+  103: {
+    id: 103,
+    focus: 'Lamb',
+    ingredients: [
+      { name: 'Leg of Lamb', amount: '1 (5-6 lb), bone-in or boneless' },
+      { name: 'Garlic', amount: '1 whole head, cloves peeled and sliced' },
+      { name: 'Olive Oil', amount: '¼ cup' },
+      { name: 'Fresh Lemon Juice', amount: '¼ cup' },
+      { name: 'Fresh Oregano or Rosemary', amount: '2 tbsp, chopped' },
+      { name: 'Salt', amount: '2 tsp' },
+      { name: 'Black Pepper', amount: '1 tsp' },
+    ],
+    instructions: [
+      {
+        step: 1,
+        text: 'Prep Lamb: Preheat your oven to 400°F (200°C). Pat the lamb leg dry. Use a sharp knife to make 15-20 small incisions (holes) evenly across the surface.',
+      },
+      {
+        step: 2,
+        text: 'Stuff: Insert the sliced garlic pieces into all the incisions, pushing them deep into the meat.',
+      },
+      {
+        step: 3,
+        text: 'Rub: In a small bowl, whisk together the olive oil, lemon juice, chopped herbs, salt, and pepper. Rub this mixture thoroughly all over the lamb leg.',
+      },
+      {
+        step: 4,
+        text: 'Roast (High/Low Method): Place the lamb in a roasting pan. Roast at 400°F for 20 minutes to sear the outside.',
+      },
+      {
+        step: 5,
+        text: 'Continue Cooking: Reduce the oven temperature to 325°F (160°C) and continue roasting until the internal temperature reaches your desired doneness (use a meat thermometer): Medium-Rare: 130°F, Medium: 140°F, Well-Done: 160°F.',
+      },
+      {
+        step: 6,
+        text: 'Rest and Carve: Remove the lamb from the oven and tent it loosely with foil. Crucially, let it rest for 15-20 minutes before carving to ensure maximum juiciness.',
+      },
+    ],
+  },
 }
 

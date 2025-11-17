@@ -2,6 +2,15 @@
 AddType application/javascript .js
 AddType text/css .css
 
+# Cache control - prevent caching of HTML files (if mod_headers is enabled)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
 RewriteEngine On
 
 # Force HTTPS redirect (if not already HTTPS)

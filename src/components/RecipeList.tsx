@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Recipe } from '@/data/recipes'
+import type { DietaryRestriction } from './FilterPanel'
 import RecipeCard from './RecipeCard'
 
 interface RecipeListProps {
@@ -8,6 +9,7 @@ interface RecipeListProps {
   hasSelectedIngredients?: boolean
   featuredRecipes?: Recipe[]
   showFeatured?: boolean
+  selectedDietaryRestrictions?: DietaryRestriction[]
 }
 
 const RECIPES_PER_PAGE = 6
@@ -16,7 +18,8 @@ export default function RecipeList({
   recipes, 
   hasSelectedIngredients = false,
   featuredRecipes = [],
-  showFeatured = false
+  showFeatured = false,
+  selectedDietaryRestrictions = []
 }: RecipeListProps) {
   const { t } = useTranslation()
   const [displayCount, setDisplayCount] = useState(RECIPES_PER_PAGE)
@@ -47,7 +50,11 @@ export default function RecipeList({
         {/* Featured Recipes List */}
         <div className="space-y-4">
           {featuredRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard 
+              key={recipe.id} 
+              recipe={recipe} 
+              selectedDietaryRestrictions={selectedDietaryRestrictions}
+            />
           ))}
         </div>
       </div>
@@ -70,7 +77,11 @@ export default function RecipeList({
       <div className="space-y-4">
         {displayedRecipes.length > 0 ? (
           displayedRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard 
+              key={recipe.id} 
+              recipe={recipe} 
+              selectedDietaryRestrictions={selectedDietaryRestrictions}
+            />
           ))
         ) : (
           <div className="text-center text-gray-400 dark:text-gray-500 py-12">

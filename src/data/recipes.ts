@@ -752,6 +752,30 @@ export const recipes: Recipe[] = [
     cookingMethod: ['bake', 'fry'],
     dietaryRestrictions: ['gluten-free'],
   },
+  {
+    id: 101,
+    name: 'Pan-Seared Lamb Chops',
+    keyIngredients: ['Lamb', 'Garlic', 'Olive Oil', 'Butter'],
+    categories: ['Meat', 'Seasoning', 'Seasoning', 'Dairy'],
+    cookingMethod: ['fry'],
+    dietaryRestrictions: ['gluten-free', 'nut-free'],
+  },
+  {
+    id: 102,
+    name: 'Moroccan Braised Lamb Tagine',
+    keyIngredients: ['Lamb', 'Onion', 'Carrot', 'Garlic'],
+    categories: ['Meat', 'Veg', 'Veg', 'Seasoning'],
+    cookingMethod: ['soup', 'boil'],
+    dietaryRestrictions: ['gluten-free', 'dairy-free', 'nut-free'],
+  },
+  {
+    id: 103,
+    name: 'Greek-Style Roast Leg of Lamb',
+    keyIngredients: ['Lamb', 'Garlic', 'Olive Oil', 'Lemon'],
+    categories: ['Meat', 'Seasoning', 'Seasoning', 'Seasoning'],
+    cookingMethod: ['roast'],
+    dietaryRestrictions: ['gluten-free', 'dairy-free', 'nut-free'],
+  },
 ]
 
 // 食材名称映射（将界面显示的食材名称映射到食谱中的食材名称）
@@ -842,27 +866,189 @@ export function getRecipesOfTheDay(): Recipe[] {
   return recipes.filter(recipe => selectedIds.includes(recipe.id))
 }
 
+// 饮食限制对应的需要避免的食材
+export const restrictionAvoidIngredients: Record<string, string[]> = {
+  'dairy-free': ['Milk', 'Butter', 'Cheese', 'Cream', 'Yogurt'],
+  'gluten-free': ['Bread', 'Noodles', 'Pasta', 'Flour', 'Wheat'],
+  'egg-free': ['Egg'],
+  'nut-free': ['Nuts', 'Peanut', 'Almond', 'Cashew', 'Walnut'],
+  'shellfish-free': ['Shrimp', 'Crab', 'Lobster', 'Oysters', 'Clams'],
+  'soy-free': ['Soy Sauce', 'Tofu', 'Soy'],
+  'sugar-free': ['Sugar', 'Honey', 'Maple Syrup'],
+  'honey-free': ['Honey'],
+  'lamb-free': ['Lamb'],
+  'vegetarian': ['Chicken', 'Beef', 'Pork', 'Fish', 'Salmon', 'Turkey', 'Bacon', 'Sausage', 'Ground Beef', 'Shrimp', 'Lamb', 'Veal', 'Spam', 'Deli Meat', 'Oysters', 'Clams'],
+  'vegan': ['Chicken', 'Beef', 'Pork', 'Fish', 'Salmon', 'Turkey', 'Bacon', 'Sausage', 'Ground Beef', 'Shrimp', 'Lamb', 'Veal', 'Spam', 'Deli Meat', 'Oysters', 'Clams', 'Egg', 'Milk', 'Butter', 'Cheese', 'Cream', 'Yogurt'],
+}
+
+// 替代建议映射
+export const substitutionSuggestions: Record<string, Record<string, string>> = {
+  'dairy-free': {
+    'Milk': 'Plant-based milk (almond, oat, or soy milk)',
+    'Butter': 'Plant-based butter or olive oil',
+    'Cheese': 'Nutritional yeast or dairy-free cheese',
+    'Cream': 'Coconut cream or cashew cream',
+    'Yogurt': 'Coconut yogurt or soy yogurt',
+  },
+  'gluten-free': {
+    'Bread': 'Gluten-free bread',
+    'Noodles': 'Rice noodles or gluten-free pasta',
+    'Pasta': 'Gluten-free pasta or rice noodles',
+    'Flour': 'Almond flour or rice flour',
+    'Wheat': 'Gluten-free alternative',
+  },
+  'egg-free': {
+    'Egg': 'Flax egg (1 tbsp ground flaxseed + 3 tbsp water) or chia egg',
+  },
+  'nut-free': {
+    'Nuts': 'Seeds (sunflower, pumpkin)',
+    'Peanut': 'Sunflower seed butter',
+    'Almond': 'Sunflower seeds',
+    'Cashew': 'Pumpkin seeds',
+    'Walnut': 'Pumpkin seeds',
+  },
+  'shellfish-free': {
+    'Shrimp': 'Tofu or mushrooms',
+    'Crab': 'Tofu or jackfruit',
+    'Lobster': 'Tofu or mushrooms',
+    'Oysters': 'Mushrooms',
+    'Clams': 'Mushrooms',
+  },
+  'soy-free': {
+    'Soy Sauce': 'Coconut aminos or tamari (if gluten-free needed)',
+    'Tofu': 'Chickpeas or tempeh (if not soy-free)',
+    'Soy': 'Alternative protein source',
+  },
+  'sugar-free': {
+    'Sugar': 'Stevia, erythritol, or monk fruit sweetener',
+    'Honey': 'Stevia or erythritol',
+    'Maple Syrup': 'Sugar-free syrup or stevia',
+  },
+  'honey-free': {
+    'Honey': 'Maple syrup or agave nectar',
+  },
+  'lamb-free': {
+    'Lamb': 'Beef or pork',
+  },
+  'vegetarian': {
+    'Chicken': 'Tofu or tempeh',
+    'Beef': 'Mushrooms or lentils',
+    'Pork': 'Tofu or mushrooms',
+    'Fish': 'Tofu or mushrooms',
+    'Salmon': 'Tofu or mushrooms',
+    'Turkey': 'Tofu or tempeh',
+    'Bacon': 'Tempeh bacon or mushrooms',
+    'Sausage': 'Vegetarian sausage',
+    'Ground Beef': 'Lentils or mushrooms',
+    'Shrimp': 'Tofu or mushrooms',
+    'Lamb': 'Mushrooms or lentils',
+    'Veal': 'Mushrooms',
+    'Spam': 'Tofu or tempeh',
+    'Deli Meat': 'Vegetarian deli slices',
+    'Oysters': 'Mushrooms',
+    'Clams': 'Mushrooms',
+  },
+  'vegan': {
+    'Chicken': 'Tofu or tempeh',
+    'Beef': 'Mushrooms or lentils',
+    'Pork': 'Tofu or mushrooms',
+    'Fish': 'Tofu or mushrooms',
+    'Salmon': 'Tofu or mushrooms',
+    'Turkey': 'Tofu or tempeh',
+    'Bacon': 'Tempeh bacon or mushrooms',
+    'Sausage': 'Vegetarian sausage',
+    'Ground Beef': 'Lentils or mushrooms',
+    'Shrimp': 'Tofu or mushrooms',
+    'Lamb': 'Mushrooms or lentils',
+    'Veal': 'Mushrooms',
+    'Spam': 'Tofu or tempeh',
+    'Deli Meat': 'Vegetarian deli slices',
+    'Oysters': 'Mushrooms',
+    'Clams': 'Mushrooms',
+    'Egg': 'Flax egg or chia egg',
+    'Milk': 'Plant-based milk',
+    'Butter': 'Plant-based butter or olive oil',
+    'Cheese': 'Nutritional yeast or dairy-free cheese',
+    'Cream': 'Coconut cream',
+    'Yogurt': 'Coconut yogurt',
+  },
+}
+
+// 获取食谱中需要替代的食材及其替代建议
+export function getSubstitutionSuggestions(
+  recipe: Recipe,
+  selectedDietaryRestrictions: string[]
+): Array<{ ingredient: string; substitution: string; restriction: string }> {
+  const suggestions: Array<{ ingredient: string; substitution: string; restriction: string }> = []
+
+  if (selectedDietaryRestrictions.length === 0) {
+    return suggestions
+  }
+
+  // 检查每个饮食限制
+  selectedDietaryRestrictions.forEach((restriction) => {
+    const avoidIngredients = restrictionAvoidIngredients[restriction] || []
+    const substitutions = substitutionSuggestions[restriction] || {}
+
+    // 检查食谱中的每个食材
+    recipe.keyIngredients.forEach((ingredient) => {
+      // 检查是否需要避免这个食材
+      const needsSubstitution = avoidIngredients.some((avoid) =>
+        ingredient.toLowerCase().includes(avoid.toLowerCase()) ||
+        avoid.toLowerCase().includes(ingredient.toLowerCase())
+      )
+
+      if (needsSubstitution) {
+        // 找到对应的替代建议
+        const substitution = Object.entries(substitutions).find(([key]) =>
+          ingredient.toLowerCase().includes(key.toLowerCase()) ||
+          key.toLowerCase().includes(ingredient.toLowerCase())
+        )?.[1]
+
+        if (substitution && !suggestions.some(s => s.ingredient === ingredient && s.restriction === restriction)) {
+          suggestions.push({
+            ingredient,
+            substitution,
+            restriction,
+          })
+        }
+      }
+    })
+  })
+
+  return suggestions
+}
+
 // 匹配食谱函数
 export function matchRecipes(
   selectedIngredientIds: string[],
   selectedCookingMethods: string[] = [],
   selectedDietaryRestrictions: string[] = []
 ): Recipe[] {
-  if (selectedIngredientIds.length === 0) {
+  // 如果既没有选择食材，也没有选择烹饪方式或饮食限制，返回空数组
+  if (selectedIngredientIds.length === 0 && selectedCookingMethods.length === 0 && selectedDietaryRestrictions.length === 0) {
     return []
   }
 
-  // 将选中的食材ID转换为食谱中的食材名称
-  const selectedIngredients = new Set<string>()
-  selectedIngredientIds.forEach((id) => {
-    const mapped = ingredientMapping[id] || []
-    mapped.forEach((ing) => selectedIngredients.add(ing))
-  })
+  let matched: Recipe[] = []
 
-  // 匹配食谱：如果食谱的关键食材中有任何一个在选中的食材中，就匹配
-  let matched = recipes.filter((recipe) =>
-    recipe.keyIngredients.some((ing) => selectedIngredients.has(ing))
-  )
+  // 如果选择了食材，先根据食材匹配
+  if (selectedIngredientIds.length > 0) {
+    // 将选中的食材ID转换为食谱中的食材名称
+    const selectedIngredients = new Set<string>()
+    selectedIngredientIds.forEach((id) => {
+      const mapped = ingredientMapping[id] || []
+      mapped.forEach((ing) => selectedIngredients.add(ing))
+    })
+
+    // 匹配食谱：如果食谱的关键食材中有任何一个在选中的食材中，就匹配
+    matched = recipes.filter((recipe) =>
+      recipe.keyIngredients.some((ing) => selectedIngredients.has(ing))
+    )
+  } else {
+    // 如果没有选择食材，但选择了烹饪方式或饮食限制，则从所有食谱开始
+    matched = [...recipes]
+  }
 
   // 应用烹饪方式过滤
   if (selectedCookingMethods.length > 0) {
@@ -876,18 +1062,7 @@ export function matchRecipes(
     })
   }
 
-  // 应用饮食限制过滤
-  if (selectedDietaryRestrictions.length > 0) {
-    matched = matched.filter((recipe) => {
-      if (!recipe.dietaryRestrictions || recipe.dietaryRestrictions.length === 0) {
-        return false // 如果没有指定饮食限制，则不显示（严格模式）
-      }
-      // 食谱必须包含所有选中的饮食限制
-      return selectedDietaryRestrictions.every((restriction) =>
-        recipe.dietaryRestrictions?.includes(restriction)
-      )
-    })
-  }
+  // 注意：不再根据饮食限制过滤食谱，而是显示所有食谱并提供替代建议
 
   return matched
 }
